@@ -1,8 +1,9 @@
 package ru.marina.githubrepositoriesobserver.model
 
 import com.google.gson.annotations.SerializedName
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 data class AuthResponsePlanModel(
 
     @SerializedName("name") var name: String? = null,

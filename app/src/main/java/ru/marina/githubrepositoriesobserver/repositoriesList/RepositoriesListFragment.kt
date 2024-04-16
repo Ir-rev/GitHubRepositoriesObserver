@@ -9,13 +9,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.databinding.FragmentRepositoriesListBinding
 
-
+@AndroidEntryPoint
 class RepositoriesListFragment : Fragment() {
     private var binding: FragmentRepositoriesListBinding? = null
-    private var repositoriesList: RecyclerView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +35,11 @@ class RepositoriesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = binding ?: return
-        repositoriesList= binding.repositoriesListRecycler
+        val repositoriesList: RecyclerView= binding.repositoriesListRecycler
 
         binding.logOutButton.setOnClickListener {
             // переход на гл. экран
         }
-        val repositoriesList= repositoriesList ?: return
         repositoriesList.layoutManager=LinearLayoutManager(context)
 
     }
