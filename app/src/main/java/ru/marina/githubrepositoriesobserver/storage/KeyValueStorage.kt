@@ -1,4 +1,6 @@
 package ru.marina.githubrepositoriesobserver.storage
 
-class KeyValueStorage {
+import javax.inject.Inject
+
+class KeyValueStorage @Inject constructor(){
 }

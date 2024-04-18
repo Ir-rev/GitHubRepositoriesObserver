@@ -2,9 +2,10 @@ package ru.marina.githubrepositoriesobserver.model
 
 import com.google.gson.annotations.SerializedName
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
-data class AuthResponseModel(
+
+data class AuthResponseModel @Inject constructor(
     @SerializedName("login") var login: String? = null,
     @SerializedName("id") var id: Int? = null,
     @SerializedName("node_id") var nodeId: String? = null,

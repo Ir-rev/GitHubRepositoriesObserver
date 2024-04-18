@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
 @AndroidEntryPoint
-class DetailInfoFragment : Fragment() {
+class DetailInfoFragment @Inject constructor(): Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

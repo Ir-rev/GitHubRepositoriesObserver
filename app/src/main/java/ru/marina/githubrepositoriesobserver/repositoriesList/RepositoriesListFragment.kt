@@ -10,11 +10,12 @@ import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.databinding.FragmentRepositoriesListBinding
 
 @AndroidEntryPoint
-class RepositoriesListFragment : Fragment() {
+class RepositoriesListFragment @Inject constructor(): Fragment() {
     private var binding: FragmentRepositoriesListBinding? = null
 
 

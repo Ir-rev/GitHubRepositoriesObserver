@@ -10,12 +10,13 @@ import android.widget.EditText
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.databinding.FragmentAuthBinding
 import ru.marina.githubrepositoriesobserver.repositoriesList.RepositoriesListFragment
 
 @AndroidEntryPoint
-class AuthFragment : Fragment() {
+class AuthFragment @Inject constructor(): Fragment() {
 
     private var binding: FragmentAuthBinding? = null
 
