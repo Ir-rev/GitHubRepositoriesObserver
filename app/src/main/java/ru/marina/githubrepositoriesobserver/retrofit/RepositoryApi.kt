@@ -1,12 +1,12 @@
 package ru.marina.githubrepositoriesobserver.retrofit
 
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.http.GET
-import ru.marina.githubrepositoriesobserver.model.RepositoriesList
+import ru.marina.githubrepositoriesobserver.model.RepositoriesListApi
 
-
+@AndroidEntryPoint
 interface RepositoryApi {
     // в гет засунуть конечную точку запроса
-    @GET("repository.json")
-    fun getAllInfoRepositoryList():RepositoriesList
+    @GET("/user")
+    fun getAllInfoRepositoryList(token: String): RepositoriesListApi
 }
