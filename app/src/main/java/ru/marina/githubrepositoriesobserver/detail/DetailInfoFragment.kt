@@ -8,14 +8,11 @@ import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
+
 @AndroidEntryPoint
-class DetailInfoFragment @Inject constructor(): Fragment() {
+class DetailInfoFragment @Inject constructor() : Fragment() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    // TODO: Добавь вьюбайдинг не забудь занулить его
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +20,4 @@ class DetailInfoFragment @Inject constructor(): Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_detail_info, container, false)
     }
-
-
 }

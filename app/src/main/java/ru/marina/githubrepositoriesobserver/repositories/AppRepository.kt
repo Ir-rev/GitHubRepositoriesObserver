@@ -6,8 +6,6 @@ import javax.inject.Singleton
 import ru.marina.githubrepositoriesobserver.model.AuthResponseModel
 
 // парсинг json
-@AndroidEntryPoint
-@Singleton
-class AppRepository @Inject constructor() {
+class AppRepository() {
 
 }

@@ -1,3 +1,5 @@
+include(":auth-api")
+
 pluginManagement {
     repositories {
         google {

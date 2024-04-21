@@ -8,8 +8,8 @@ import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.state.RepositoriesListViewModelState
 
 @HiltViewModel
-class RepositoriesListViewModel @Inject constructor(): ViewModel() {
+class RepositoriesListViewModel @Inject constructor() : ViewModel() {
 
-    private val _repositoriesList= MutableLiveData<RepositoriesListViewModelState>()
-    val repositoriesList : LiveData<RepositoriesListViewModelState> = _repositoriesList
+    private val _repositoriesList = MutableLiveData<RepositoriesListViewModelState>()
+    val repositoriesList: LiveData<RepositoriesListViewModelState> = _repositoriesList
 }
