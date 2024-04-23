@@ -5,7 +5,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
-data class AuthResponseModel @Inject constructor(
+data class AuthResponseModel(
     @SerializedName("login") var login: String? = null,
     @SerializedName("id") var id: Int? = null,
     @SerializedName("node_id") var nodeId: String? = null,

@@ -9,12 +9,13 @@
 
 
     <ImageView
+        android:paddingHorizontal="16dp"
         android:id="@+id/logo_git"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/input_token"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="34dp"
         tools:src="@tools:sample/avatars"
 
         />
@@ -26,10 +27,10 @@
         android:hint="@string/personal_access_token"
         android:inputType="text"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_sing_in"
+        android:layout_marginTop="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/logo_git"/>
 
     <Button
         android:id="@+id/button_sing_in"
@@ -37,8 +38,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/sing_in_button"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
