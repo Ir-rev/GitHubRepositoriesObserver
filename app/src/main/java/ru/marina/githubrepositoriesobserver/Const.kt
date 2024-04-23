@@ -5,4 +5,6 @@ object Const {
     const val ACCEPT_HEADER = "Accept"
     const val ACCEPT = "application/vnd.github+json"
     const val START_POINT = "token "
+    //для sharedPreference
+    const val TOKEN_PREFERENCE_KEY="token "
 }

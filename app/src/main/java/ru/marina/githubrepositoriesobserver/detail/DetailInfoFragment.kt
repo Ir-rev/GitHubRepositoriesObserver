@@ -8,16 +8,25 @@ import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
+import ru.marina.githubrepositoriesobserver.databinding.FragmentAuthBinding
+import ru.marina.githubrepositoriesobserver.databinding.FragmentDetailInfoBinding
 
 @AndroidEntryPoint
 class DetailInfoFragment @Inject constructor() : Fragment() {
 
-    // TODO: Добавь вьюбайдинг не забудь занулить его
+    private var binding: FragmentDetailInfoBinding?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_detail_info, container, false)
+    ): View {
+        val binding=FragmentDetailInfoBinding.inflate(inflater,container,false)
+        this.binding=binding
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        binding= null
+        super.onDestroy()
     }
 }

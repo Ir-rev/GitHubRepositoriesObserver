@@ -3,10 +3,14 @@ package ru.marina.githubrepositoriesobserver
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import ru.marina.githubrepositoriesobserver.auth.AuthFragment
+import javax.inject.Inject
+import ru.marina.githubrepositoriesobserver.auth.AuthUserFragment
+import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
+    private val databaseSaveToken: DatabaseSaveToken? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,8 +19,16 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_container, AuthFragment())
+                .replace(R.id.main_container, AuthUserFragment())
                 .commit()
         }
+        //создание бд
+        databaseSaveToken?.bindDB(applicationContext)
+
+    }
+
+    override fun onDestroy() {
+        databaseSaveToken?.releaseDB()
+        super.onDestroy()
     }
 }

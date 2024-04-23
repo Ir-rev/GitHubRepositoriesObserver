@@ -1,4 +1,4 @@
-package ru.marina.githubrepositoriesobserver.repositories
+package ru.marina.githubrepositoriesobserver.api
 
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
