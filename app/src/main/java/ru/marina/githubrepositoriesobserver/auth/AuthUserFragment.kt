@@ -62,6 +62,7 @@ class AuthUserFragment : Fragment() {
         binding.buttonSingIn.setOnClickListener {
 
             val authViewModel = this.authViewModel ?: return@setOnClickListener
+            // передали токен вью модели
             authViewModel.tryAuth(binding.inputToken.text.toString())
             setResultAuth(authViewModel.viewStateFlow.value)
 

@@ -43,14 +43,14 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         authJob = viewModelScope.launch(Dispatchers.IO) {
             _viewStateFlow.emit(AuthUserTokenViewModelState.Loading)
             val login = authLoginUseCase.authLoginUser(token)
-            if (login!=null){
-                databaseSaveToken.setToken(login)
-                _viewStateFlow.emit(AuthUserTokenViewModelState.Success(login))
-            }
-            else{
+            if (login.isEmpty()) {
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Error("Введите токен"))
+            } else {
+                Log.d(TAG, "tryAuth: токен прошел")
+                databaseSaveToken.setToken(login)
+                Log.d(TAG, "tryAuth: токен загружен в бд")
+                _viewStateFlow.emit(AuthUserTokenViewModelState.Success(databaseSaveToken.getToken()))
             }
-
 
             // елси логин пришёл сохраняешь данные в бд и открываешь новый экран через AuthUserTokenViewModelState.Success
             // если не прошёл ставишь ошибку AuthUserTokenViewModelState.Error
