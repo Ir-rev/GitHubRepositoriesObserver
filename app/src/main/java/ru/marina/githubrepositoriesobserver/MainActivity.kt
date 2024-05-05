@@ -9,9 +9,9 @@ import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @Inject
-    private val databaseSaveToken: DatabaseSaveToken? = null
 
+    @Inject
+    lateinit var databaseSaveToken: DatabaseSaveToken
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
