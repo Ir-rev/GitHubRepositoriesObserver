@@ -28,7 +28,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     private val authLoginUseCase: AuthLoginUseCase? = null
 
 
-
+//вот тут
     fun setResultAuthToken(state: AuthUserTokenViewModelState, context: Context, token: String){
         viewModelScope.launch {
             when(state){
