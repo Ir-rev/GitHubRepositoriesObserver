@@ -33,6 +33,11 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
 
         binding.logOutButton.setOnClickListener {
             // переход на гл. экран
+            requireActivity()
+                .supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_auth, RepositoriesListFragment())
+                .addToBackStack(null)
+                .commit()
         }
         binding.repositoriesListRecycler.layoutManager = LinearLayoutManager(context)
     }

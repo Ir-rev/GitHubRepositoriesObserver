@@ -9,11 +9,16 @@ class RepositoryListUseCase @Inject constructor() {
     @Inject
     //private val repositoryListUseCase: RepositoryListUseCase?= null
     lateinit var repository: RepositoriesListRepository
-    private var mapper: RepositoriesModelMapper?= null
+    private lateinit var mapper: RepositoriesModelMapper
 
         suspend fun getRepositoriesList(token: String): List<RepositoriesModel> {
-            return mapper?.invoke(repository.getRepositoriesList(token).map { list -> list.name})
-//        return repository.getRepositoriesList(token)
-            //.map { list -> list.reposUrl }
+            val listModel=repository.getRepositoriesList(token)
+            val listMapper= mutableListOf<RepositoriesModel>()
+            for (element in listModel){
+                listMapper.add(mapper.invoke(element))
+            }
+
+            return listMapper
+
     }
 }

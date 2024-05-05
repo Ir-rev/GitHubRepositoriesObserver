@@ -5,10 +5,10 @@ import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 
 sealed class RepositoriesListViewModelState {
 
-    // загрузка данных
+    // загрузка логина
     object Loading : RepositoriesListViewModelState()
 
-    // ошибка
+    // ошибка логина
     data class Error(val message: String) : RepositoriesListViewModelState()
 
     // успешная загрузка

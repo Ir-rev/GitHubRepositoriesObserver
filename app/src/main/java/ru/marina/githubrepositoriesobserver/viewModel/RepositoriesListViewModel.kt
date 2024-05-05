@@ -18,9 +18,9 @@ class RepositoriesListViewModel @Inject constructor() : ViewModel() {
     private val _repositoriesList = MutableLiveData<RepositoriesListViewModelState>()
     val repositoriesList: LiveData<RepositoriesListViewModelState> = _repositoriesList
 
-    private fun getRepositoriesList(){
+    private fun getRepositoriesList(token: String){
         viewModelScope.launch {
-            repositoryListUseCase.getRepositoriesList()
+            repositoryListUseCase.getRepositoriesList(token)
         }
 
     }
