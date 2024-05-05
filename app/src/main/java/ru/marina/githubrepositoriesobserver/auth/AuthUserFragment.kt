@@ -13,8 +13,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
+import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
 import ru.marina.githubrepositoriesobserver.databinding.FragmentAuthBinding
 import ru.marina.githubrepositoriesobserver.useCase.AuthLoginUseCase
+import ru.marina.githubrepositoriesobserver.viewModel.AuthViewModel
 
 @AndroidEntryPoint
 class AuthUserFragment @Inject constructor() : Fragment() {
@@ -22,8 +24,8 @@ class AuthUserFragment @Inject constructor() : Fragment() {
     private var binding: FragmentAuthBinding? = null
     @Inject
     lateinit var authUseCase: AuthLoginUseCase
-//    @Inject
-//    private val databaseSaveToken: DatabaseSaveToken?= null
+    @Inject
+    lateinit var authViewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,15 +46,15 @@ class AuthUserFragment @Inject constructor() : Fragment() {
         val editTextToken= binding.inputToken
         // получили введеный токен
         val textToken= editTextToken.text.toString()
-        //databaseSaveToken?.setToken(textToken)
+        authViewModel.setCurrentToken(textToken)
+
 
         binding.buttonSingIn.setOnClickListener {
 
             lifecycleScope.launch(Dispatchers.IO) {
                 //получить логин из вью модели
-//                if (databaseSaveToken==null) return@launch
-//                val textToken=databaseSaveToken.getToken()
-                val login = authUseCase.authLoginUser(textToken)
+                val token= authViewModel.getUserToken().toString()
+                val login = authUseCase.authLoginUser(token)
                 Log.d("checkResult", "onViewCreated: $login")
             }
             

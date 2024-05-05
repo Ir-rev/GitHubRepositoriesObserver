@@ -13,6 +13,7 @@ import okhttp3.Dispatcher
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
 import ru.marina.githubrepositoriesobserver.repositoriesList.RepositoriesListFragment
+import ru.marina.githubrepositoriesobserver.state.AuthUserTokenViewModelState
 import ru.marina.githubrepositoriesobserver.state.RepositoriesListViewModelState
 import ru.marina.githubrepositoriesobserver.useCase.AuthLoginUseCase
 
@@ -27,14 +28,25 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     private val authLoginUseCase: AuthLoginUseCase? = null
 
 
-// должны быть экшены
+
+    fun setResultAuthToken(state: AuthUserTokenViewModelState, context: Context, token: String){
+        viewModelScope.launch {
+            when(state){
+                is AuthUserTokenViewModelState.Error -> Toast.makeText(context, "Неверный токен!", Toast.LENGTH_SHORT).show()
+                is AuthUserTokenViewModelState.Loading -> Toast.makeText(context, "Загрузка...", Toast.LENGTH_SHORT).show()
+                is AuthUserTokenViewModelState.Success -> authLoginUseCase?.authLoginUser(token)
+
+            }
+        }
+
+    }
 
 
-    private fun setCurrentToken(token: String) {
+    fun setCurrentToken(token: String) {
         databaseSaveToken?.setToken(token)
     }
 
-    private fun getUserToken() {
+    fun getUserToken() {
         viewModelScope.launch(Dispatchers.IO) {
             databaseSaveToken?.getToken()
         }
