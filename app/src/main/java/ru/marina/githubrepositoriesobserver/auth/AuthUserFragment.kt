@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -18,6 +17,8 @@ import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
 import ru.marina.githubrepositoriesobserver.databinding.FragmentAuthBinding
+import ru.marina.githubrepositoriesobserver.repositoriesList.RepositoriesListFragment
+import ru.marina.githubrepositoriesobserver.state.AuthUserTokenViewModelState
 import ru.marina.githubrepositoriesobserver.useCase.AuthLoginUseCase
 import ru.marina.githubrepositoriesobserver.viewModel.AuthViewModel
 
@@ -36,18 +37,18 @@ class AuthUserFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentAuthBinding.inflate(inflater, container, false)
-        this.binding = binding
+        val binding=FragmentAuthBinding.inflate(inflater, container, false)
+        this.binding=binding
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-
         if (savedInstanceState != null) {
             binding.inputToken.setText(savedInstanceState.getString(LAST_TOKEN_INPUT) ?: "")
         }
@@ -56,9 +57,14 @@ class AuthUserFragment : Fragment() {
             .load(R.drawable.git_logo)
             .into(binding.logoGit)
 
+
+
         binding.buttonSingIn.setOnClickListener {
+
             val authViewModel = this.authViewModel ?: return@setOnClickListener
             authViewModel.tryAuth(binding.inputToken.text.toString())
+            setResultAuth(authViewModel.viewStateFlow.value)
+
         }
 
         // TODO: Это должно быть в месте где ловятся экшены вьюмодели
@@ -70,6 +76,20 @@ class AuthUserFragment : Fragment() {
 //                .commit()
         // TODO: end
     }
+    private fun setResultAuth(state: AuthUserTokenViewModelState){
+        when(state){
+            is AuthUserTokenViewModelState.Error -> Toast.makeText(context,"Введите токен", Toast.LENGTH_SHORT).show()
+            AuthUserTokenViewModelState.Idle -> TODO()
+            AuthUserTokenViewModelState.Loading -> Toast.makeText(context,"Загрузка...", Toast.LENGTH_SHORT).show()
+            is AuthUserTokenViewModelState.Success ->
+                requireActivity()
+                .supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_auth, RepositoriesListFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(LAST_TOKEN_INPUT, binding?.inputToken?.text.toString())

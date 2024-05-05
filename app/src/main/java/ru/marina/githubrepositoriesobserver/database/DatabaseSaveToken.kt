@@ -9,7 +9,7 @@ import ru.marina.githubrepositoriesobserver.Const
 
 private const val APP_PREFERENCES = "mySetting"
 private const val TOKEN_KEY = "myToken"
-private const val  ERROR_DB="errorDB"
+private const val ERROR_DB = "errorDB"
 
 @Singleton
 class DatabaseSaveToken @Inject constructor() {
@@ -17,9 +17,9 @@ class DatabaseSaveToken @Inject constructor() {
     //метод гет токен и сет токен
     var db: SharedPreferences? = null
 
-    fun getToken():String {
+    fun getToken(): String {
         val currentBd = db ?: throw IllegalStateException(ERROR_DB)
-        return currentBd.getString(TOKEN_KEY,"") ?: ""
+        return currentBd.getString(TOKEN_KEY, "") ?: ""
     }
 
     fun setToken(token: String) {
