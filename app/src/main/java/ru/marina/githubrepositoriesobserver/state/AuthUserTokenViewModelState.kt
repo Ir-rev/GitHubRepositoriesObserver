@@ -1,6 +1,9 @@
 package ru.marina.githubrepositoriesobserver.state
 
 sealed class AuthUserTokenViewModelState {
+
+    object Idle: AuthUserTokenViewModelState()
+
     // загрузка логина
     object Loading : AuthUserTokenViewModelState()
 

@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,14 +21,19 @@ import ru.marina.githubrepositoriesobserver.databinding.FragmentAuthBinding
 import ru.marina.githubrepositoriesobserver.useCase.AuthLoginUseCase
 import ru.marina.githubrepositoriesobserver.viewModel.AuthViewModel
 
+private const val LAST_TOKEN_INPUT = "LAST_TOKEN_INPUT"
+
 @AndroidEntryPoint
-class AuthUserFragment @Inject constructor() : Fragment() {
+class AuthUserFragment : Fragment() {
 
     private var binding: FragmentAuthBinding? = null
-    @Inject
-    lateinit var authUseCase: AuthLoginUseCase
-    @Inject
-    lateinit var authViewModel: AuthViewModel
+
+    private var authViewModel: AuthViewModel? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,37 +48,36 @@ class AuthUserFragment @Inject constructor() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
 
+        if (savedInstanceState != null) {
+            binding.inputToken.setText(savedInstanceState.getString(LAST_TOKEN_INPUT) ?: "")
+        }
+
         Glide.with(this)
             .load(R.drawable.git_logo)
             .into(binding.logoGit)
-        val editTextToken= binding.inputToken
-        // получили введеный токен
-        val textToken= editTextToken.text.toString()
-        authViewModel.setCurrentToken(textToken)
-
 
         binding.buttonSingIn.setOnClickListener {
+            val authViewModel = this.authViewModel ?: return@setOnClickListener
+            authViewModel.tryAuth(binding.inputToken.text.toString())
+        }
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                //получить логин из вью модели
-                val token= authViewModel.getUserToken().toString()
-                val login = authUseCase.authLoginUser(token)
-                Log.d("checkResult", "onViewCreated: $login")
-            }
-            
-
-            // TODO: Это должно быть в месте где ловятся экшены вьюмодели
-            // проверка на токен и переход во второй фрагмент
+        // TODO: Это должно быть в месте где ловятся экшены вьюмодели
+        // проверка на токен и переход во второй фрагмент
 //            requireActivity()
 //                .supportFragmentManager.beginTransaction()
 //                .replace(R.id.fragment_auth, RepositoriesListFragment())
 //                .addToBackStack(null)
 //                .commit()
-            // TODO: end
-        }
+        // TODO: end
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(LAST_TOKEN_INPUT, binding?.inputToken?.text.toString())
+        super.onSaveInstanceState(outState)
     }
 
     override fun onDestroyView() {
+        authViewModel = null
         binding = null
         super.onDestroyView()
     }

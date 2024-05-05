@@ -13,6 +13,7 @@ private const val  ERROR_DB="errorDB"
 
 @Singleton
 class DatabaseSaveToken @Inject constructor() {
+
     //метод гет токен и сет токен
     var db: SharedPreferences? = null
 
@@ -35,7 +36,6 @@ class DatabaseSaveToken @Inject constructor() {
     //зануление бд
     fun releaseDB() {
         db = null
-
     }
 
 
