@@ -18,7 +18,7 @@ import ru.marina.githubrepositoriesobserver.useCase.AuthLoginUseCase
 const val TAG = "AuthViewModel"
 
 @HiltViewModel
-class AuthViewModel : ViewModel() {
+class AuthViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var databaseSaveToken: DatabaseSaveToken
 

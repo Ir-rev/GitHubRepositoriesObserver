@@ -7,9 +7,11 @@ import ru.marina.githubrepositoriesobserver.repository.RepositoriesListRepositor
 
 class RepositoryListUseCase @Inject constructor() {
 
+    @Inject
     lateinit var repository: RepositoriesListRepository
-    private lateinit var mapper: RepositoriesModelMapper
-
+    @Inject
+    lateinit var mapper: RepositoriesModelMapper
+//23/04
         suspend fun getRepositoriesList(token: String): List<RepositoriesModel> {
             val listModel=repository.getRepositoriesList(token)
             val listMapper= mutableListOf<RepositoriesModel>()

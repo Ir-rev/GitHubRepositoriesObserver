@@ -5,8 +5,6 @@ import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 
 sealed class RepositoriesListViewModelState {
 
-    object Idle: RepositoriesListViewModelState()
-
     // загрузка списка
     object Loading : RepositoriesListViewModelState()
 

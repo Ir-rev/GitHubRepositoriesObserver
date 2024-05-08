@@ -6,6 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.auth.AuthUserFragment
 import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
+import ru.marina.githubrepositoriesobserver.repositoriesList.RepositoriesListFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -19,16 +20,16 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_container, AuthUserFragment())
+                .replace(R.id.main_container, RepositoriesListFragment())
                 .commit()
         }
         //создание бд
-        databaseSaveToken?.bindDB(applicationContext)
+        databaseSaveToken.bindDB(applicationContext)
 
     }
 
     override fun onDestroy() {
-        databaseSaveToken?.releaseDB()
+        databaseSaveToken.releaseDB()
         super.onDestroy()
     }
 }
