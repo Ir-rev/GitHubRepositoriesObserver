@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class SingInResponseRepositoryBriefInfoEntity (
-    val name: String,
-    val description: String,
-    val kotlinOrJava: String
+    val name: String?,
+    val description: String?,
+    val language: String?,
 )

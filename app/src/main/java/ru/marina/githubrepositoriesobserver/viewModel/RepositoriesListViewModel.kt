@@ -29,7 +29,7 @@ class RepositoriesListViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var databaseSaveToken: DatabaseSaveToken
   //  private val token = databaseSaveToken.getToken()
-    private val token = null
+    private val token = "1" // TODO
 
 
     private val _viewStateFlow: MutableStateFlow<RepositoriesListViewModelState> =

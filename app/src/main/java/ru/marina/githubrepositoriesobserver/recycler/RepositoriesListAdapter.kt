@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.databinding.ItemRepositoriesListBinding
 import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 
@@ -27,7 +25,7 @@ class RepositoriesListAdapter(
         val repository= repositoriesList[position]
         holder.repositoryName.text=repository.name
         holder.repositoryDescription.text=repository.description
-        holder.languageCode.text=repository.kotlinOrJava
+        holder.languageCode.text=repository.language
     }
 
     class RepositoriesListHolder(private val binding: ItemRepositoriesListBinding) :
