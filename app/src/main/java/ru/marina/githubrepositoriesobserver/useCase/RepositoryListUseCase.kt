@@ -6,8 +6,7 @@ import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 import ru.marina.githubrepositoriesobserver.repository.RepositoriesListRepository
 
 class RepositoryListUseCase @Inject constructor() {
-    @Inject
-    //private val repositoryListUseCase: RepositoryListUseCase?= null
+
     lateinit var repository: RepositoriesListRepository
     private lateinit var mapper: RepositoriesModelMapper
 

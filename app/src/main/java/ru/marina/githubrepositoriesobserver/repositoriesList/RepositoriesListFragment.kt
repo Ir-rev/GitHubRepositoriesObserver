@@ -13,11 +13,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.databinding.FragmentRepositoriesListBinding
+import ru.marina.githubrepositoriesobserver.viewModel.RepositoriesListViewModel
 
 @AndroidEntryPoint
 class RepositoriesListFragment @Inject constructor() : Fragment() {
 
     private var binding: FragmentRepositoriesListBinding? = null
+    private val viewModel: RepositoriesListViewModel?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +42,8 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                 .commit()
         }
         binding.repositoriesListRecycler.layoutManager = LinearLayoutManager(context)
+        viewModel?.repositoriesList?.observe(viewLifecycleOwner){
+        }
     }
 
     override fun onDestroy() {

@@ -1,8 +1,6 @@
 package ru.marina.githubrepositoriesobserver.viewModel
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,18 +11,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
-import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
-import ru.marina.githubrepositoriesobserver.repositoriesList.RepositoriesListFragment
 import ru.marina.githubrepositoriesobserver.state.AuthUserTokenViewModelState
-import ru.marina.githubrepositoriesobserver.state.RepositoriesListViewModelState
 import ru.marina.githubrepositoriesobserver.useCase.AuthLoginUseCase
 
 const val TAG = "AuthViewModel"
 
 @HiltViewModel
-class AuthViewModel @Inject constructor() : ViewModel() {
+class AuthViewModel : ViewModel() {
     @Inject
     lateinit var databaseSaveToken: DatabaseSaveToken
 
@@ -42,12 +36,12 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         authJob?.cancel()
         authJob = viewModelScope.launch(Dispatchers.IO) {
             _viewStateFlow.emit(AuthUserTokenViewModelState.Loading)
-            val login = authLoginUseCase.authLoginUser(token)
-            if (login.isEmpty()) {
+            val token = authLoginUseCase.authLoginUser(token)
+            if (token.isEmpty()) {
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Error("Введите токен"))
             } else {
                 Log.d(TAG, "tryAuth: токен прошел")
-                databaseSaveToken.setToken(login)
+                databaseSaveToken.setToken(token)
                 Log.d(TAG, "tryAuth: токен загружен в бд")
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Success(databaseSaveToken.getToken()))
             }
