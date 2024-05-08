@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobserver.R
+import ru.marina.githubrepositoriesobserver.auth.AuthUserFragment
 import ru.marina.githubrepositoriesobserver.databinding.FragmentRepositoriesListBinding
 import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 import ru.marina.githubrepositoriesobserver.recycler.RepositoriesListAdapter
@@ -52,7 +53,7 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
             // переход на гл. экран
             requireActivity()
                 .supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_auth, RepositoriesListFragment())
+                .replace(R.id.fragment_auth, AuthUserFragment())
                 .addToBackStack(null)
                 .commit()
         }

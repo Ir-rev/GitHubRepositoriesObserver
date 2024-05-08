@@ -28,8 +28,7 @@ class RepositoriesListViewModel @Inject constructor() : ViewModel() {
 
     @Inject
     lateinit var databaseSaveToken: DatabaseSaveToken
-  //  private val token = databaseSaveToken.getToken()
-    private val token = "1" // TODO
+   // private val token = "1" // TODO\
 
 
     private val _viewStateFlow: MutableStateFlow<RepositoriesListViewModelState> =
@@ -45,7 +44,7 @@ class RepositoriesListViewModel @Inject constructor() : ViewModel() {
             _viewStateFlow.emit(RepositoriesListViewModelState.Loading)
             _viewStateFlow.emit(
                 RepositoriesListViewModelState
-                    .Success(repositoryListUseCase.getRepositoriesList(token))
+                    .Success(repositoryListUseCase.getRepositoriesList(databaseSaveToken.getToken()))
             )
         }
     }

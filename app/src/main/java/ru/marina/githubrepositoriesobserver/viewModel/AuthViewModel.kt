@@ -36,8 +36,8 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         authJob?.cancel()
         authJob = viewModelScope.launch(Dispatchers.IO) {
             _viewStateFlow.emit(AuthUserTokenViewModelState.Loading)
-            val token = authLoginUseCase.authLoginUser(token)
-            if (token.isEmpty()) {
+            val login = authLoginUseCase.authLoginUser(token)
+            if (login.isEmpty()) {
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Error("Введите токен"))
             } else {
                 Log.d(TAG, "tryAuth: токен прошел")
