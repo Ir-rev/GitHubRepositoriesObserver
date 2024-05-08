@@ -14,15 +14,17 @@ import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.databinding.FragmentRepositoriesListBinding
 import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
+import ru.marina.githubrepositoriesobserver.recycler.RepositoriesListAdapter
 import ru.marina.githubrepositoriesobserver.viewModel.RepositoriesListViewModel
 
 @AndroidEntryPoint
 class RepositoriesListFragment @Inject constructor() : Fragment() {
 
     private var binding: FragmentRepositoriesListBinding? = null
-    private var  viewModel: RepositoriesListViewModel?= null
+    private lateinit var  viewModel: RepositoriesListViewModel
 
-
+    //? должен ли фрагмент держать этот лист?
+    //private lateinit var listRepositories: List<RepositoriesModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +47,9 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                 .commit()
         }
         binding.repositoriesListRecycler.layoutManager = LinearLayoutManager(context)
+        binding.repositoriesListRecycler.adapter=RepositoriesListAdapter(viewModel.listRepositories)
         // нужно получить данные из вьюмодели: имя, описание, ЯП и запихать сюда
+//        listRepositories=viewModel.getRepositoriesList()
 
 
 
