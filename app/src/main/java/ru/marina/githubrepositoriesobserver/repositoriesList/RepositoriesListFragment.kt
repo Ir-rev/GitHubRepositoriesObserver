@@ -59,16 +59,19 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
         binding.repositoriesListRecycler.layoutManager = LinearLayoutManager(context)
         lifecycleScope.launch {
             viewModel?.viewStateFlow?.collect { state ->
-                when(state){
-                    is RepositoriesListViewModelState.Error ->  {
+                when (state) {
+                    is RepositoriesListViewModelState.Error -> {
                         // показать на весь экран заглушку
                     }
-                    RepositoriesListViewModelState.Loading ->{
+
+                    RepositoriesListViewModelState.Loading -> {
                         //нужно сделать вьюшку на весь экран и скрыть ее отображение, при загрузке показываем ее
                         //поискать пример в фильмах
                     }
+
                     is RepositoriesListViewModelState.Success ->
-                        binding.repositoriesListRecycler.adapter = RepositoriesListAdapter(state.repositoriesModelList)
+                        binding.repositoriesListRecycler.adapter =
+                            RepositoriesListAdapter(state.repositoriesModelList)
                 }
 
             }

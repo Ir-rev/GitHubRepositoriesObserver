@@ -80,7 +80,7 @@ class AuthUserFragment : Fragment() {
     private fun setResultAuth(state: AuthUserTokenViewModelState){
         when(state){
             is AuthUserTokenViewModelState.Error -> Toast.makeText(context,"Введите токен", Toast.LENGTH_SHORT).show()
-            AuthUserTokenViewModelState.Idle -> TODO()
+            AuthUserTokenViewModelState.Idle -> {}
             AuthUserTokenViewModelState.Loading -> Toast.makeText(context,"Загрузка...", Toast.LENGTH_SHORT).show()
             is AuthUserTokenViewModelState.Success ->
                 requireActivity()

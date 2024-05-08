@@ -7,9 +7,11 @@ import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 class RepositoriesModelMapper @Inject constructor(){
 
     operator fun invoke(model: SingInResponseRepositoryBriefInfoEntity): RepositoriesModel {
-        return RepositoriesModel(name = model.name,
+        return RepositoriesModel(
+            name = model.name,
             description = model.description,
-            kotlinOrJava = model.kotlinOrJava)
+            language = model.language
+        )
     }
 
 }
