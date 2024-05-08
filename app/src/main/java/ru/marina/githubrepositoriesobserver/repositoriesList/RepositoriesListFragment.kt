@@ -13,13 +13,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.databinding.FragmentRepositoriesListBinding
+import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 import ru.marina.githubrepositoriesobserver.viewModel.RepositoriesListViewModel
 
 @AndroidEntryPoint
 class RepositoriesListFragment @Inject constructor() : Fragment() {
 
     private var binding: FragmentRepositoriesListBinding? = null
-    private val viewModel: RepositoriesListViewModel?= null
+    private var  viewModel: RepositoriesListViewModel?= null
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +45,10 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                 .commit()
         }
         binding.repositoriesListRecycler.layoutManager = LinearLayoutManager(context)
-        viewModel?.repositoriesList?.observe(viewLifecycleOwner){
-        }
+        // нужно получить данные из вьюмодели: имя, описание, ЯП и запихать сюда
+
+
+
     }
 
     override fun onDestroy() {
