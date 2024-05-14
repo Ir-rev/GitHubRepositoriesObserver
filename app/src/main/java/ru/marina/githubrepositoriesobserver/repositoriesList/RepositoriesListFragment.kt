@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -50,10 +52,9 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
         val binding = binding ?: return
 
         binding.logOutButton.setOnClickListener {
-            // переход на гл. экран
             requireActivity()
                 .supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_auth, AuthUserFragment())
+                .replace(R.id.main_container, AuthUserFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -62,23 +63,41 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
             viewModel?.viewStateFlow?.collect { state ->
                 when (state) {
                     is RepositoriesListViewModelState.Error -> {
-                        // показать на весь экран заглушку
+                        showOrHideErrorContainer(true)
+                        showOrHideGifLoading(false)
                     }
 
                     RepositoriesListViewModelState.Loading -> {
-                        //нужно сделать вьюшку на весь экран и скрыть ее отображение, при загрузке показываем ее
-                        //поискать пример в фильмах
+                        showOrHideErrorContainer(false)
+                        showOrHideGifLoading(true)
                     }
 
-                    is RepositoriesListViewModelState.Success ->
+                    is RepositoriesListViewModelState.Success ->{
+                        showOrHideGifLoading(false)
+                        showOrHideErrorContainer(false)
                         binding.repositoriesListRecycler.adapter =
                             RepositoriesListAdapter(state.repositoriesModelList)
+                    }
+
+
                 }
 
             }
         }
 
     }
+    private fun showOrHideErrorContainer(isShow: Boolean) {
+        binding?.containerError?.isVisible = isShow
+    }
+
+    private fun showOrHideGifLoading(isShow: Boolean) {
+        val image= binding?.imageViewLoading
+        binding?.containerLoading?.isVisible= isShow
+        Glide.with(this)
+            .load(R.drawable.cat_dance)
+            .into(image!!)
+    }
+
 
     override fun onDestroy() {
         binding = null

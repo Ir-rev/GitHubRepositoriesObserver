@@ -5,4 +5,7 @@
     <string name="toolbar_text">Repositories</string>
     <string name="sing_in_button">SING IN</string>
     <string name="personal_access_token">Personal access token</string>
+    <string name="text_error">Ошибка</string>
+    <string name="button_error">Обновить страницу</string>
+    <string name="loading">loading...</string>
 </resources>
