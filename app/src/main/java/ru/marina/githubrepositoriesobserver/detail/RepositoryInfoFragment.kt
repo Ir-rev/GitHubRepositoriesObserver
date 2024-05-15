@@ -16,16 +16,15 @@ import ru.marina.githubrepositoriesobserver.viewModel.RepositoryInfoViewModel
 class RepositoryInfoFragment @Inject constructor() : Fragment() {
 
     private var binding: FragmentDetailInfoBinding? = null
-   // private var viewModel: RepositoriesInfoModel? = null
-   @Inject
-   lateinit var viewModel: RepositoriesInfoModel
+    private var viewModel: RepositoryInfoViewModel? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        viewModel = ViewModelProvider(this)[RepositoryInfoViewModel::class.java]
-//        if (savedInstanceState == null) {
-//            viewModel
-//        }
+        viewModel = ViewModelProvider(this)[RepositoryInfoViewModel::class.java]
+        if (savedInstanceState == null) {
+            viewModel
+        }
     }
 
     override fun onCreateView(

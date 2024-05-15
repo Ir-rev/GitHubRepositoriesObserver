@@ -8,4 +8,12 @@
     <string name="text_error">Ошибка</string>
     <string name="button_error">Обновить страницу</string>
     <string name="loading">loading...</string>
+    <string name="license">License</string>
+    <string name="licensekey">License-Key</string>
+    <string name="stars_number">stars_number</string>
+    <string name="star">stars</string>
+    <string name="forks_number">forks_number</string>
+    <string name="forks">forks</string>
+    <string name="watchers_number">watchers_number</string>
+    <string name="watchers">watchers</string>
 </resources>
