@@ -86,6 +86,8 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
         }
 
     }
+
+    // сделать переход на инфо экран
     private fun showOrHideErrorContainer(isShow: Boolean) {
         binding?.containerError?.isVisible = isShow
     }

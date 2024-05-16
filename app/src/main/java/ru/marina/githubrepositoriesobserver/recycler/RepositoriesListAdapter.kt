@@ -22,14 +22,15 @@ class RepositoriesListAdapter(
     override fun getItemCount(): Int = repositoriesList.size
 
     override fun onBindViewHolder(holder: RepositoriesListHolder, position: Int) {
-        val repository= repositoriesList[position]
-        holder.repositoryName.text=repository.name
-        holder.repositoryDescription.text=repository.description
-        holder.languageCode.text=repository.language
+        val repository = repositoriesList[position]
+        holder.repositoryName.text = repository.name
+        holder.repositoryDescription.text = repository.description
+        holder.languageCode.text = repository.language
     }
 
-    class RepositoriesListHolder(private val binding: ItemRepositoriesListBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class RepositoriesListHolder(
+        private val binding: ItemRepositoriesListBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         val repositoryName: TextView = binding.nameRepository
         val repositoryDescription: TextView = binding.descriptionRepository
         val languageCode: TextView = binding.kotlinOrJava

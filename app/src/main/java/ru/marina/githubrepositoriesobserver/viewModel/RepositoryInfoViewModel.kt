@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
 import ru.marina.githubrepositoriesobserver.state.RepositoriesListViewModelState
+import ru.marina.githubrepositoriesobserver.state.RepositoryInfoItem
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoViewModelState
 import ru.marina.githubrepositoriesobserver.useCase.RepositoryInfoUseCase
 
@@ -36,7 +37,15 @@ class RepositoryInfoViewModel @Inject constructor(): ViewModel(){
             _viewStateFlow.emit(RepositoryInfoViewModelState.Loading)
             _viewStateFlow.emit(
                 RepositoryInfoViewModelState
-                    .Success(useCase.getInfoRepository(databaseSaveToken.getToken()))
+                    //.Success(useCase.getInfoRepository(databaseSaveToken.getToken()))
+                    .Success(
+                        itemList = listOf(
+                            RepositoryInfoItem.Link("https://kmm.icerock.dev/university/android-basics/practice#функциональные-требования"),
+                            RepositoryInfoItem.License("AAAAAAhhhjijiojihygygfs#"),
+                            RepositoryInfoItem.Statistic("1000", "45", "99999"),
+                            RepositoryInfoItem.Description("ygyecgfywdgycgergfche38uwfgc7gterw67tf6te7d78yce87tct6xrfew6rdc67t273dyc8xgywsfctfxqwtd7ctq782eywc89uqe9w0qiqcv9oudfuhyv c7yqewd78ct")
+                        )
+                    )
             )
         }
     }
