@@ -59,6 +59,7 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
         binding.recyclerViewInfo.layoutManager= LinearLayoutManager(context)
         lifecycleScope.launch {
             viewModel?.viewStateFlow?.collect{ state->
