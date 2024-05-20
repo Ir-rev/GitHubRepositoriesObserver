@@ -14,7 +14,7 @@ class RepositoriesInfoModelMapper @Inject constructor() {
             licenseKey = model.licenseKey,
             forks = model.forks,
             watchers = model.watchers,
-            openIssues = model.openIssues
+            stars = model.openIssues
         )
     }
 }

@@ -3,12 +3,14 @@ package ru.marina.githubrepositoriesobserver.recycler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import ru.marina.githubrepositoriesobserver.databinding.ItemRepositoriesListBinding
 import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 
 class RepositoriesListAdapter(
-    private val repositoriesList: List<RepositoriesModel>
+    private val repositoriesList: List<RepositoriesModel>,
+    private val onCardClicked: (name: Int) -> Unit
 ) : RecyclerView.Adapter<RepositoriesListAdapter.RepositoriesListHolder>() {
 
 
@@ -26,14 +28,18 @@ class RepositoriesListAdapter(
         holder.repositoryName.text = repository.name
         holder.repositoryDescription.text = repository.description
         holder.languageCode.text = repository.language
+        holder.repositoryListRoot.setOnClickListener{
+            onCardClicked(position)
+        }
     }
 
     class RepositoriesListHolder(
-        private val binding: ItemRepositoriesListBinding
+        binding: ItemRepositoriesListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         val repositoryName: TextView = binding.nameRepository
         val repositoryDescription: TextView = binding.descriptionRepository
         val languageCode: TextView = binding.kotlinOrJava
+        val repositoryListRoot: CardView= binding.repoListRoot
 
     }
 

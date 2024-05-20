@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayout3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="@string/toolbar_text"
                 android:textColor="#DAD6D6"
                 android:textSize="35dp"
@@ -41,9 +41,9 @@
                 android:id="@+id/log_out_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="200"
+                android:layout_weight="1"
                 android:background="#232121"
-                android:src="@drawable/log_out"
+                android:src="@drawable/log_out_"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -60,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="vertical"
+        android:background="#FF000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

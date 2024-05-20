@@ -20,8 +20,10 @@ import ru.marina.githubrepositoriesobserver.auth.AuthUserFragment
 import ru.marina.githubrepositoriesobserver.databinding.FragmentDetailInfoBinding
 import ru.marina.githubrepositoriesobserver.model.RepositoriesInfoModel
 import ru.marina.githubrepositoriesobserver.recycler.RepositoryDetailAdapter
+import ru.marina.githubrepositoriesobserver.repositoriesList.RepositoriesListFragment
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoViewModelState
 import ru.marina.githubrepositoriesobserver.viewModel.RepositoryInfoViewModel
+private const val KEY_ID = "keyId"
 
 @AndroidEntryPoint
 class RepositoryInfoFragment @Inject constructor() : Fragment() {
@@ -56,6 +58,14 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
                 .supportFragmentManager.
                 beginTransaction()
                 .replace(R.id.main_container, AuthUserFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+        binding.arrowBack.setOnClickListener {
+            requireActivity()
+                .supportFragmentManager.
+                beginTransaction()
+                .replace(R.id.main_container, RepositoriesListFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -98,5 +108,14 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
     override fun onDestroy() {
         binding = null
         super.onDestroy()
+    }
+    companion object {
+        fun newInstance(name: Int): RepositoryInfoFragment {
+            val args = Bundle()
+            args.putInt(KEY_ID, name)
+            val fragment = RepositoryInfoFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

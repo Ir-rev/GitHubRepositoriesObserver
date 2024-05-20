@@ -1,7 +1,6 @@
 package ru.marina.githubrepositoriesobserver.state
 
-import ru.marina.githubrepositoriesobserver.model.RepositoriesInfoModel
-import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
+
 
 sealed class RepositoryInfoViewModelState {
 

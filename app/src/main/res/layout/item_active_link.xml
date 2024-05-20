@@ -6,11 +6,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_link"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#100F0F"
         android:orientation="horizontal"
-        android:paddingLeft="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,7 +30,9 @@
             android:autoLink="web"
             android:text="TextView"
             android:textColor="#2196F3"
-            android:textSize="30dp"/>
+            android:textSize="25sp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
     </LinearLayout>
 

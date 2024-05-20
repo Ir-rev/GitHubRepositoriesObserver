@@ -17,25 +17,27 @@ private const val LICENSE = 2
 private const val DESCRIPTION = 3
 
 
-class RepositoryDetailAdapter(private val repositoryInfoItem: List<RepositoryInfoItem>) :
+class RepositoryDetailAdapter(
+    private val repositoryInfoItem: List<RepositoryInfoItem>
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     class RepositoryActiveLinkHolder(
-        private val bindingLink: ItemActiveLinkBinding
+        bindingLink: ItemActiveLinkBinding
     ) : RecyclerView.ViewHolder(bindingLink.root) {
         val linkText: TextView = bindingLink.linkActive
 
     }
 
-    class RepositoryLicenseHolder(private val bindingLicense: ItemLicenseBinding) :
+    class RepositoryLicenseHolder(bindingLicense: ItemLicenseBinding) :
         RecyclerView.ViewHolder(bindingLicense.root) {
         val licenseKey: TextView = bindingLicense.licenseKey
 
 
     }
 
-    class RepositoryStarForkWatcherHolder(private val bindingStarForkWatcher: ItemStarForkWatcherBinding) :
+    class RepositoryStarForkWatcherHolder(bindingStarForkWatcher: ItemStarForkWatcherBinding) :
         RecyclerView.ViewHolder(bindingStarForkWatcher.root) {
         val numberStars: TextView = bindingStarForkWatcher.starsNumber
         val numberForks: TextView = bindingStarForkWatcher.forksNumber
@@ -43,7 +45,7 @@ class RepositoryDetailAdapter(private val repositoryInfoItem: List<RepositoryInf
 
     }
 
-    class RepositoryDescriptionHolder(private val bindingDescription: ItemDescriptionBinding) :
+    class RepositoryDescriptionHolder(bindingDescription: ItemDescriptionBinding) :
         RecyclerView.ViewHolder(bindingDescription.root) {
         val descriptionText: TextView = bindingDescription.descriptionText
 
@@ -51,7 +53,7 @@ class RepositoryDetailAdapter(private val repositoryInfoItem: List<RepositoryInf
     }
 
     override fun getItemViewType(position: Int): Int {
-        val item = repositoryInfoItem.get(position)
+        val item = repositoryInfoItem[position]
         return when (item) {
             is RepositoryInfoItem.Description -> DESCRIPTION
             is RepositoryInfoItem.License -> LICENSE
@@ -90,24 +92,27 @@ class RepositoryDetailAdapter(private val repositoryInfoItem: List<RepositoryInf
     override fun getItemCount(): Int = repositoryInfoItem.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is RepositoryActiveLinkHolder -> {
-                val item = repositoryInfoItem.get(position) as? RepositoryInfoItem.Link ?: return
+                val item = repositoryInfoItem[position] as? RepositoryInfoItem.Link ?: return
                 holder.linkText.text = item.link
             }
+
             is RepositoryLicenseHolder -> {
-                val item = repositoryInfoItem.get(position) as? RepositoryInfoItem.License ?: return
-                holder.licenseKey.text= item.nameLicense
+                val item = repositoryInfoItem[position] as? RepositoryInfoItem.License ?: return
+                holder.licenseKey.text = item.nameLicense
             }
+
             is RepositoryDescriptionHolder -> {
-                val item = repositoryInfoItem.get(position) as? RepositoryInfoItem.Description ?: return
-                holder.descriptionText.text= item.description
+                val item = repositoryInfoItem[position] as? RepositoryInfoItem.Description ?: return
+                holder.descriptionText.text = item.description
             }
-            is RepositoryStarForkWatcherHolder ->{
-                val item = repositoryInfoItem.get(position) as? RepositoryInfoItem.Statistic ?: return
-                holder.numberForks.text= item.fork
-                holder.numberStars.text= item.star
-                holder.numberWatchers.text= item.watchers
+
+            is RepositoryStarForkWatcherHolder -> {
+                val item = repositoryInfoItem[position] as? RepositoryInfoItem.Statistic ?: return
+                holder.numberForks.text = item.fork
+                holder.numberStars.text = item.star
+                holder.numberWatchers.text = item.watchers
 
             }
         }

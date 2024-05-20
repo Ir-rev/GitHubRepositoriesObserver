@@ -13,5 +13,5 @@ data class RepositoriesInfoModel (
     val forks: String?,
     val watchers: String?,
     //звездочки
-    val openIssues: String?
+    val stars: String?
 )
