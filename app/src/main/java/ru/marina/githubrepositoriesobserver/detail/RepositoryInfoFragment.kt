@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.IllegalStateException
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobserver.R
@@ -36,8 +37,9 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel= ViewModelProvider(this,
             RepositoryInfoViewModelFactory(
-                name = arguments?.getString(ARG_NAME_KEY_ID),
-                owner = arguments?.toString(ARG_OWNER_KEY_ID))
+                name = arguments?.getString(ARG_NAME_KEY_ID) ?: throw IllegalStateException(""),
+                owner = arguments?.getString(ARG_OWNER_KEY_ID) ?: throw IllegalStateException("")
+            )
         )[RepositoryInfoViewModel::class.java]
 
         if (savedInstanceState == null) {
