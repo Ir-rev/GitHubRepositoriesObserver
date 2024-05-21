@@ -16,4 +16,14 @@ class RepositoriesListRepository @Inject constructor() {
             .getRepositoriesBriefInfoList("${Const.START_POINT} $token")
 
     }
+    suspend fun getOwner(token: String): String?{
+        return retrofit.getUserLoginProviderRetrofit()
+            .getRepositoriesBriefInfoList("${Const.START_POINT} $token").first().owner
+
+    }
+    suspend fun getRepo(token: String): String?{
+        return retrofit.getUserLoginProviderRetrofit()
+            .getRepositoriesBriefInfoList("${Const.START_POINT} $token").first().name
+
+    }
 }

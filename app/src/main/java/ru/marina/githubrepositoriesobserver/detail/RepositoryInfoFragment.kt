@@ -8,22 +8,22 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.auth.AuthUserFragment
 import ru.marina.githubrepositoriesobserver.databinding.FragmentDetailInfoBinding
-import ru.marina.githubrepositoriesobserver.model.RepositoriesInfoModel
 import ru.marina.githubrepositoriesobserver.recycler.RepositoryDetailAdapter
 import ru.marina.githubrepositoriesobserver.repositoriesList.RepositoriesListFragment
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoViewModelState
 import ru.marina.githubrepositoriesobserver.viewModel.RepositoryInfoViewModel
-private const val KEY_ID = "keyId"
+import ru.marina.githubrepositoriesobserver.viewModel.RepositoryInfoViewModelFactory
+
+private const val ARG_NAME_KEY_ID = "ARG_NAME_KEY_ID"
+private const val ARG_OWNER_KEY_ID = "ARG_OWNER_KEY_ID"
 
 @AndroidEntryPoint
 class RepositoryInfoFragment @Inject constructor() : Fragment() {
@@ -34,7 +34,12 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[RepositoryInfoViewModel::class.java]
+        viewModel= ViewModelProvider(this,
+            RepositoryInfoViewModelFactory(
+                name = arguments?.getString(ARG_NAME_KEY_ID),
+                owner = arguments?.toString(ARG_OWNER_KEY_ID))
+        )[RepositoryInfoViewModel::class.java]
+
         if (savedInstanceState == null) {
             viewModel
         }
@@ -110,9 +115,10 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
         super.onDestroy()
     }
     companion object {
-        fun newInstance(name: Int): RepositoryInfoFragment {
+        fun newInstance(name: String, owner: String): RepositoryInfoFragment {
             val args = Bundle()
-            args.putInt(KEY_ID, name)
+            args.putString(ARG_NAME_KEY_ID, name)
+            args.putString(ARG_OWNER_KEY_ID, owner)
             val fragment = RepositoryInfoFragment()
             fragment.arguments = args
             return fragment

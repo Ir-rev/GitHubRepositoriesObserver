@@ -2,6 +2,7 @@ package ru.marina.githubrepositoriesobserver.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -11,22 +12,27 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
+import ru.marina.githubrepositoriesobserver.model.RepositoriesInfoModel
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoItem
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoViewModelState
 import ru.marina.githubrepositoriesobserver.useCase.RepositoryInfoUseCase
+import ru.marina.githubrepositoriesobserver.useCase.RepositoryListUseCase
 
 @HiltViewModel
-class RepositoryInfoViewModel @Inject constructor() : ViewModel() {
-
-    @Inject
-    lateinit var databaseSaveToken: DatabaseSaveToken
-
-    @Inject
-    lateinit var useCase: RepositoryInfoUseCase
+class RepositoryInfoViewModel @Inject constructor(
+   private val owner: String,
+    private val name: String
+) : ViewModel() {
 
     private val _viewStateFlow: MutableStateFlow<RepositoryInfoViewModelState> =
         MutableStateFlow(RepositoryInfoViewModelState.Loading)
     val viewStateFlow: StateFlow<RepositoryInfoViewModelState> = _viewStateFlow.asStateFlow()
+
+    @Inject
+    lateinit var useCase: RepositoryInfoUseCase
+    @Inject
+    lateinit var databaseSaveToken: DatabaseSaveToken
+
 
 
     init {
@@ -39,17 +45,21 @@ class RepositoryInfoViewModel @Inject constructor() : ViewModel() {
                 _viewStateFlow.emit(RepositoryInfoViewModelState.Error(throwable.localizedMessage.toString()))
             }
         }) {
-//            var model: RepositoriesInfoModel = useCase.getInfoRepository(databaseSaveToken.getToken())
+
+            val model= useCase.getInfoRepository(databaseSaveToken.getToken(), name, owner)
 
             _viewStateFlow.emit(RepositoryInfoViewModelState.Loading)
             _viewStateFlow.emit(
                 RepositoryInfoViewModelState
                     .Success(
                         itemList = listOf(
-                            RepositoryInfoItem.Link("https://kmm.icerock.dev/university/android-basics/practice#функциональные-требования"),
-                            RepositoryInfoItem.License("AAAAAAhhhjijiojihygygfs#"),
-                            RepositoryInfoItem.Statistic("1000", "45", "99999"),
-                            RepositoryInfoItem.Description("ygyecgfywdgycgergfche38uwfgc7gterw67tf6te7d78yce87tct6xrfew6rdc67t273dyc8xgywsfctfxqwtd7ctq782eywc89uqe9w0qiqcv9oudfuhyv c7yqewd78ct")
+                            RepositoryInfoItem.Link(model.htmlUrl.toString()),
+                            RepositoryInfoItem.License(model.licenseKey.toString()),
+                            RepositoryInfoItem.Statistic(
+                                model.stars.toString(),
+                                model.forks.toString(),
+                                model.watchers.toString()),
+                            RepositoryInfoItem.Description(model.description.toString())
                         )
                     )
             )

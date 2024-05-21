@@ -10,7 +10,7 @@ import ru.marina.githubrepositoriesobserver.model.RepositoriesModel
 
 class RepositoriesListAdapter(
     private val repositoriesList: List<RepositoriesModel>,
-    private val onCardClicked: (name: Int) -> Unit
+    private val onCardClicked: (name: String, owner: String) -> Unit
 ) : RecyclerView.Adapter<RepositoriesListAdapter.RepositoriesListHolder>() {
 
 
@@ -29,7 +29,7 @@ class RepositoriesListAdapter(
         holder.repositoryDescription.text = repository.description
         holder.languageCode.text = repository.language
         holder.repositoryListRoot.setOnClickListener{
-            onCardClicked(position)
+            onCardClicked(repository.name, repository.owner)
         }
     }
 

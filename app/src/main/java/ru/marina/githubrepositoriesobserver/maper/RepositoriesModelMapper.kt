@@ -9,7 +9,7 @@ class RepositoriesModelMapper @Inject constructor(){
     operator fun invoke(model: SingInResponseRepositoryBriefInfoEntity): RepositoriesModel {
         return RepositoriesModel(
             name = model.name,
-//            login = model.login,
+            owner = model.owner,
             description = model.description,
             language = model.language
         )

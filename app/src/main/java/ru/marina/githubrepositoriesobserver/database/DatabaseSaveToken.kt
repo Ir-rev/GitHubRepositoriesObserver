@@ -10,6 +10,8 @@ import ru.marina.githubrepositoriesobserver.Const
 private const val APP_PREFERENCES = "mySetting"
 private const val TOKEN_KEY = "myToken"
 private const val ERROR_DB = "errorDB"
+private const val OWNER = "myOwner"
+private const val REPO = "myRepo"
 
 @Singleton
 class DatabaseSaveToken @Inject constructor() {
