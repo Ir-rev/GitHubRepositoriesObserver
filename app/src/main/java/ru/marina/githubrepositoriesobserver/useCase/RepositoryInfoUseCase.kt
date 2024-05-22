@@ -1,10 +1,8 @@
 package ru.marina.githubrepositoriesobserver.useCase
 
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import ru.marina.githubrepositoriesobserver.maper.RepositoriesInfoModelMapper
 import ru.marina.githubrepositoriesobserver.model.RepositoriesInfoModel
-import ru.marina.githubrepositoriesobserver.repository.RepositoriesListRepository
 import ru.marina.githubrepositoriesobserver.repository.RepositoryInfoRepository
 
 class RepositoryInfoUseCase @Inject constructor() {
@@ -16,10 +14,9 @@ class RepositoryInfoUseCase @Inject constructor() {
 
     suspend fun getInfoRepository(token: String, name: String, owner: String): RepositoriesInfoModel {
 
-        return mapper.invoke(repository.getRepositoryInfo(token, name, owner))
+        return mapper.invoke(repository.getRepositoryInfo(token = token, repo = name, owner = owner))
 
     }
-
 
 
 }

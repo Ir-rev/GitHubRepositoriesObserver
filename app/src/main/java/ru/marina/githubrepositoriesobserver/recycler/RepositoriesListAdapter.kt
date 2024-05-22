@@ -27,7 +27,7 @@ class RepositoriesListAdapter(
         val repository = repositoriesList[position]
         holder.repositoryName.text = repository.name
         holder.repositoryDescription.text = repository.description
-        holder.languageCode.text = repository.language
+        holder.languageCode.text = repository.login
         holder.repositoryListRoot.setOnClickListener{
             onCardClicked(repository.name, repository.owner)
         }

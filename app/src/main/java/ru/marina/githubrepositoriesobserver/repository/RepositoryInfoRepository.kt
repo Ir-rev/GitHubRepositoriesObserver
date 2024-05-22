@@ -15,18 +15,9 @@ class RepositoryInfoRepository @Inject constructor() {
         return retrofit.getUserLoginProviderRetrofit()
             .getRepositoryInfo(
                 token = "${Const.START_POINT} $token",
-                owner = "${Const.START_OWNER} $owner",
-                repo = "${Const.START_REPO} $repo"
+                owner = owner,
+                repo = repo
             )
 
     }
-//    suspend fun getRepositoryInfo(token: String, owner: String, repo: String): SingInResponseRepositoryInfo{
-//        return retrofit.getUserLoginProviderRetrofit()
-//            .getRepositoryInfo(
-//                token = "${Const.START_POINT} $token",
-//                owner = "${Const.START_OWNER} $owner",
-//                repo = "${Const.START_REPO} $repo"
-//            )
-//
-//    }
 }

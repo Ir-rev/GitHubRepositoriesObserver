@@ -1,7 +1,6 @@
 package ru.marina.githubrepositoriesobserver.provider
 
 import javax.inject.Inject
-import retrofit2.create
 import ru.marina.githubrepositoriesobserver.api.RepositoryInfoApi
 
 class RepositoryInfoProviderRetrofit @Inject constructor() {

@@ -5,18 +5,15 @@ import android.content.SharedPreferences
 import java.lang.IllegalStateException
 import javax.inject.Inject
 import javax.inject.Singleton
-import ru.marina.githubrepositoriesobserver.Const
 
 private const val APP_PREFERENCES = "mySetting"
 private const val TOKEN_KEY = "myToken"
 private const val ERROR_DB = "errorDB"
-private const val OWNER = "myOwner"
-private const val REPO = "myRepo"
 
 @Singleton
 class DatabaseSaveToken @Inject constructor() {
 
-    var db: SharedPreferences? = null
+    private var db: SharedPreferences? = null
 
     fun getToken(): String {
         val currentBd = db ?: throw IllegalStateException(ERROR_DB)

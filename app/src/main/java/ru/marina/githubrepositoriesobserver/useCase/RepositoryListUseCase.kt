@@ -23,7 +23,3 @@ class RepositoryListUseCase @Inject constructor() {
 
     }
 }
-//    suspend fun getOwner(token: String): String?{
-//        return getRepositoriesList(token).first().owner
-//    }
-//}

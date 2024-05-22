@@ -16,10 +16,12 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobserver.R
 import ru.marina.githubrepositoriesobserver.auth.AuthUserFragment
+import ru.marina.githubrepositoriesobserver.database.DatabaseSaveToken
 import ru.marina.githubrepositoriesobserver.databinding.FragmentDetailInfoBinding
 import ru.marina.githubrepositoriesobserver.recycler.RepositoryDetailAdapter
 import ru.marina.githubrepositoriesobserver.repositoriesList.RepositoriesListFragment
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoViewModelState
+import ru.marina.githubrepositoriesobserver.useCase.RepositoryInfoUseCase
 import ru.marina.githubrepositoriesobserver.viewModel.RepositoryInfoViewModel
 import ru.marina.githubrepositoriesobserver.viewModel.RepositoryInfoViewModelFactory
 
@@ -32,18 +34,25 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
     private var binding: FragmentDetailInfoBinding? = null
     private var viewModel: RepositoryInfoViewModel? = null
 
+    @Inject
+    lateinit var useCase: RepositoryInfoUseCase
+    @Inject
+    lateinit var databaseSaveToken: DatabaseSaveToken
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel= ViewModelProvider(this,
+        viewModel = ViewModelProvider(
+            this,
             RepositoryInfoViewModelFactory(
                 name = arguments?.getString(ARG_NAME_KEY_ID) ?: throw IllegalStateException(""),
-                owner = arguments?.getString(ARG_OWNER_KEY_ID) ?: throw IllegalStateException("")
+                owner = arguments?.getString(ARG_OWNER_KEY_ID) ?: throw IllegalStateException(""),
+                useCase = useCase,
+                databaseSaveToken = databaseSaveToken
             )
         )[RepositoryInfoViewModel::class.java]
 
         if (savedInstanceState == null) {
-            viewModel
+            viewModel?.updateRepositoryInfo()
         }
     }
 
@@ -58,55 +67,56 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding=binding ?: return
+        val binding = binding ?: return
 
         binding.logOutButton.setOnClickListener {
             requireActivity()
-                .supportFragmentManager.
-                beginTransaction()
+                .supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, AuthUserFragment())
                 .addToBackStack(null)
                 .commit()
         }
         binding.arrowBack.setOnClickListener {
             requireActivity()
-                .supportFragmentManager.
-                beginTransaction()
+                .supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, RepositoriesListFragment())
                 .addToBackStack(null)
                 .commit()
         }
 
-        binding.recyclerViewInfo.layoutManager= LinearLayoutManager(context)
+        binding.recyclerViewInfo.layoutManager = LinearLayoutManager(context)
         lifecycleScope.launch {
-            viewModel?.viewStateFlow?.collect{ state->
-                when(state){
+            viewModel?.viewStateFlow?.collect { state ->
+                when (state) {
                     is RepositoryInfoViewModelState.Error -> {
                         showOrHideErrorContainer(true)
                         showOrHideGifLoading(false)
                     }
+
                     RepositoryInfoViewModelState.Loading -> {
                         showOrHideErrorContainer(false)
                         showOrHideGifLoading(true)
                     }
+
                     is RepositoryInfoViewModelState.Success -> {
                         showOrHideErrorContainer(false)
                         showOrHideGifLoading(false)
-                        binding.recyclerViewInfo.adapter=RepositoryDetailAdapter(state.itemList)
+                        binding.recyclerViewInfo.adapter = RepositoryDetailAdapter(state.itemList)
                     }
                 }
 
-        }
+            }
 
         }
     }
+
     private fun showOrHideErrorContainer(isShow: Boolean) {
         binding?.containerError?.isVisible = isShow
     }
 
     private fun showOrHideGifLoading(isShow: Boolean) {
-        val image= binding?.imageViewLoading
-        binding?.containerLoading?.isVisible= isShow
+        val image = binding?.imageViewLoading
+        binding?.containerLoading?.isVisible = isShow
         Glide.with(this)
             .load(R.drawable.cat_dance)
             .into(image!!)
@@ -116,6 +126,7 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
         binding = null
         super.onDestroy()
     }
+
     companion object {
         fun newInstance(name: String, owner: String): RepositoryInfoFragment {
             val args = Bundle()

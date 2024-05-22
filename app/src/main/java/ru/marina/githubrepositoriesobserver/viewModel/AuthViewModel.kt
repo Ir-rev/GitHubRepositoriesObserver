@@ -46,8 +46,6 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Success(databaseSaveToken.getToken()))
             }
 
-            // елси логин пришёл сохраняешь данные в бд и открываешь новый экран через AuthUserTokenViewModelState.Success
-            // если не прошёл ставишь ошибку AuthUserTokenViewModelState.Error
         }
     }
 

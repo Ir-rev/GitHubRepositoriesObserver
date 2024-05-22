@@ -9,7 +9,6 @@ import ru.marina.githubrepositoriesobserver.provider.UserLoginProviderRetrofit
 class AuthUserLoginRepository @Inject constructor(
     private var userLoginProviderRetrofit: UserLoginProviderRetrofit
 ) {
-    //
     suspend fun authLoginUser(token: String): String {
         return userLoginProviderRetrofit.getUserLoginProviderRetrofit()
             .getUserLogin("${Const.START_POINT} $token")

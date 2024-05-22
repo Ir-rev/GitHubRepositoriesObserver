@@ -10,11 +10,11 @@ class RepositoriesInfoModelMapper @Inject constructor() {
             name = model.name,
             description = model.description,
             htmlUrl = model.htmlUrl,
-            license = model.license,
+//            license = model.license,
             licenseKey = model.licenseKey,
-            forks = model.forks,
-            watchers = model.watchers,
-            stars = model.openIssues
+            forks = model.forks.toString(),
+            watchers = model.watchers.toString(),
+            stars = model.openIssues.toString()
         )
     }
 }

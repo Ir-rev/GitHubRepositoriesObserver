@@ -75,7 +75,7 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                             RepositoriesListAdapter(state.repositoriesModelList,
                                 onCardClicked = { name, owner ->
                                     requireActivity().supportFragmentManager.beginTransaction()
-                                        .replace(R.id.main_container, RepositoryInfoFragment.newInstance(name))
+                                        .replace(R.id.main_container, RepositoryInfoFragment.newInstance(name, owner))
                                         .addToBackStack(null).commit()
                                 })
                     }
