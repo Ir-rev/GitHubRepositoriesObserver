@@ -9,7 +9,7 @@ data class RepositoriesInfoModel (
     //лицензия
 //    val license: String?,
     //код лицензии
-    val licenseKey: String?,
+    val license: String?,
     val forks: String?,
     val watchers: String?,
     //звездочки

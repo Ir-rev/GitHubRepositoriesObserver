@@ -68,6 +68,9 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
+// name передается не тот
+        binding.nameRepository.text=arguments?.getString(ARG_NAME_KEY_ID)
+
 
         binding.logOutButton.setOnClickListener {
             requireActivity()
