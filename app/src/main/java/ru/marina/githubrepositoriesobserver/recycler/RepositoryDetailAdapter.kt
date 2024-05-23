@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import io.noties.markwon.Markwon
 import java.lang.IllegalStateException
 import ru.marina.githubrepositoriesobserver.databinding.ItemActiveLinkBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemDescriptionBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemLicenseBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemStarForkWatcherBinding
+import ru.marina.githubrepositoriesobserver.mock.Mock
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoItem
 
 private const val LINK = 0
@@ -105,7 +107,12 @@ class RepositoryDetailAdapter(
 
             is RepositoryDescriptionHolder -> {
                 val item = repositoryInfoItem[position] as? RepositoryInfoItem.Description ?: return
-                holder.descriptionText.text = item.description
+                val markwon = Markwon.create(holder.descriptionText.context)
+                //через диспетчер ио
+                val markdown = markwon.toMarkdown(item.description ?: "")
+                // потом вставляем это в тред
+
+                holder.descriptionText.text = markdown
             }
 
             is RepositoryStarForkWatcherHolder -> {
