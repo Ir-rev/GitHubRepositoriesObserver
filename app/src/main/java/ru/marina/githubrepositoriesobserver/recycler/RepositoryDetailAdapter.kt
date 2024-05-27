@@ -6,24 +6,32 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.noties.markwon.Markwon
 import java.lang.IllegalStateException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.marina.githubrepositoriesobserver.databinding.ItemActiveLinkBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemDescriptionBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemLicenseBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemStarForkWatcherBinding
-import ru.marina.githubrepositoriesobserver.mock.Mock
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoItem
 
 private const val LINK = 0
 private const val STATISTIC = 1
 private const val LICENSE = 2
 private const val DESCRIPTION = 3
-
+private const val EMPTY_DESCRIPTION = 4
 
 class RepositoryDetailAdapter(
     private val repositoryInfoItem: List<RepositoryInfoItem>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private var detailJob: Job? = null
 
     class RepositoryActiveLinkHolder(
         bindingLink: ItemActiveLinkBinding
@@ -35,8 +43,6 @@ class RepositoryDetailAdapter(
     class RepositoryLicenseHolder(bindingLicense: ItemLicenseBinding) :
         RecyclerView.ViewHolder(bindingLicense.root) {
         val licenseKey: TextView = bindingLicense.licenseKey
-
-
     }
 
     class RepositoryStarForkWatcherHolder(bindingStarForkWatcher: ItemStarForkWatcherBinding) :
@@ -44,14 +50,11 @@ class RepositoryDetailAdapter(
         val numberStars: TextView = bindingStarForkWatcher.starsNumber
         val numberForks: TextView = bindingStarForkWatcher.forksNumber
         val numberWatchers: TextView = bindingStarForkWatcher.watchersNumber
-
     }
 
     class RepositoryDescriptionHolder(bindingDescription: ItemDescriptionBinding) :
         RecyclerView.ViewHolder(bindingDescription.root) {
         val descriptionText: TextView = bindingDescription.descriptionText
-
-
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -61,6 +64,7 @@ class RepositoryDetailAdapter(
             is RepositoryInfoItem.License -> LICENSE
             is RepositoryInfoItem.Link -> LINK
             is RepositoryInfoItem.Statistic -> STATISTIC
+            RepositoryInfoItem.EmptyDescription -> EMPTY_DESCRIPTION
         }
     }
 
@@ -88,7 +92,6 @@ class RepositoryDetailAdapter(
 
             else -> throw IllegalStateException("")
         }
-
     }
 
     override fun getItemCount(): Int = repositoryInfoItem.size
@@ -106,13 +109,15 @@ class RepositoryDetailAdapter(
             }
 
             is RepositoryDescriptionHolder -> {
+                detailJob?.cancel()
                 val item = repositoryInfoItem[position] as? RepositoryInfoItem.Description ?: return
                 val markwon = Markwon.create(holder.descriptionText.context)
-                //через диспетчер ио
-                val markdown = markwon.toMarkdown(item.description ?: "")
-                // потом вставляем это в тред
-
-                holder.descriptionText.text = markdown
+                detailJob = scope.launch(Dispatchers.Default) {
+                    val markdown = markwon.toMarkdown(item.description ?: "")
+                    withContext(Dispatchers.Main) {
+                        holder.descriptionText.text = markdown
+                    }
+                }
             }
 
             is RepositoryStarForkWatcherHolder -> {
@@ -120,11 +125,14 @@ class RepositoryDetailAdapter(
                 holder.numberForks.text = item.fork
                 holder.numberStars.text = item.star
                 holder.numberWatchers.text = item.watchers
-
             }
         }
+    }
 
-
+    fun dispose() {
+        scope.cancel()
+        detailJob?.cancel()
+        detailJob = null
     }
 
 

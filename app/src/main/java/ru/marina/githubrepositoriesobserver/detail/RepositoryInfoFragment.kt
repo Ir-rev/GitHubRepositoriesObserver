@@ -71,7 +71,6 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
 // name передается не тот
         binding.nameRepository.text=arguments?.getString(ARG_NAME_KEY_ID)
 
-
         binding.logOutButton.setOnClickListener {
             requireActivity()
                 .supportFragmentManager.beginTransaction()
@@ -126,6 +125,7 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
     }
 
     override fun onDestroy() {
+        (binding?.recyclerViewInfo?.adapter as? RepositoryDetailAdapter)?.dispose()
         binding = null
         super.onDestroy()
     }
