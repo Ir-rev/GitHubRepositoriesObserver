@@ -97,7 +97,7 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
         val image = binding?.imageViewLoading
         binding?.containerLoading?.isVisible = isShow
         Glide.with(this)
-            .load(R.drawable.cat_dance)
+            .load(R.drawable.gif_louding)
             .into(image!!)
     }
 

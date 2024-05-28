@@ -17,4 +17,5 @@
     <string name="watchers_number">10</string>
     <string name="watchers">watchers</string>
     <string name="description">description...</string>
+    <string name="description_empty">description empty...</string>
 </resources>

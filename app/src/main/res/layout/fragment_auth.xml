@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_auth"
+    android:background="#FF000000"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".auth.AuthUserFragment">
@@ -24,10 +25,12 @@
         android:id="@+id/input_token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
         android:hint="@string/personal_access_token"
         android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#616161"
         android:textSize="24sp"
-        android:layout_marginTop="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo_git"/>

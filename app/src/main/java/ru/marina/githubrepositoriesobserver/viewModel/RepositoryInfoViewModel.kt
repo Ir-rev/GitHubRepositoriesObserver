@@ -62,16 +62,8 @@ class RepositoryInfoViewModel(
             if (content?.isNotBlank() == true) {
                 itemList.add(RepositoryInfoItem.Description(content))
             } else {
-//                itemList.add(RepositoryInfoItem.EmptyDescription)
+                itemList.add(RepositoryInfoItem.EmptyDescription)
             }
-//            if (contentNew?.isNotBlank()==true) {
-//                itemList.add(RepositoryInfoItem.Description(contentNew))
-//                _viewStateFlow.emit(
-//                    RepositoryInfoViewModelState
-//                        .Success(itemList)
-//
-//                )
-//            }
             _viewStateFlow.emit(
                 RepositoryInfoViewModelState
                     .Success(itemList)

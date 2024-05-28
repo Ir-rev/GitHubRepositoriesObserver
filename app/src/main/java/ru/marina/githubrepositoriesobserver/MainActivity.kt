@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_container, RepositoriesListFragment())
+                .replace(R.id.main_container, AuthUserFragment())
                 .commit()
         }
         //создание бд

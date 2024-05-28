@@ -49,7 +49,7 @@ class AuthUserFragment : Fragment() {
         }
 
         Glide.with(this)
-            .load(R.drawable.git_logo)
+            .load(R.drawable.github_bleu_png)
             .into(binding.logoGit)
 
 
@@ -70,7 +70,7 @@ class AuthUserFragment : Fragment() {
                 when(state){
                     is AuthUserTokenViewModelState.Error -> Toast.makeText(context,"Введите токен", Toast.LENGTH_SHORT).show()
                     AuthUserTokenViewModelState.Idle -> {}
-                    AuthUserTokenViewModelState.Loading -> Toast.makeText(context,"Загрузка...", Toast.LENGTH_SHORT).show()
+                    AuthUserTokenViewModelState.Loading -> {}
                     is AuthUserTokenViewModelState.Success ->
                         requireActivity()
                             .supportFragmentManager.beginTransaction()

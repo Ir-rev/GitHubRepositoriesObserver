@@ -1,5 +1,6 @@
 package ru.marina.githubrepositoriesobserver.recycler
 
+import android.content.pm.PermissionInfo
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.marina.githubrepositoriesobserver.databinding.ItemActiveLinkBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemDescriptionBinding
+import ru.marina.githubrepositoriesobserver.databinding.ItemEmptyDescriptionBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemLicenseBinding
 import ru.marina.githubrepositoriesobserver.databinding.ItemStarForkWatcherBinding
 import ru.marina.githubrepositoriesobserver.state.RepositoryInfoItem
@@ -57,6 +59,12 @@ class RepositoryDetailAdapter(
         val descriptionText: TextView = bindingDescription.descriptionText
     }
 
+    class RepositoryEmptyDescription(binding: ItemEmptyDescriptionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val descriptionEmptyText: TextView = binding.descriptionEmptyText
+
+    }
+
     override fun getItemViewType(position: Int): Int {
         val item = repositoryInfoItem[position]
         return when (item) {
@@ -88,6 +96,11 @@ class RepositoryDetailAdapter(
             DESCRIPTION -> {
                 val binding = ItemDescriptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 RepositoryDescriptionHolder(binding)
+            }
+
+            EMPTY_DESCRIPTION -> {
+                val binding = ItemEmptyDescriptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                RepositoryEmptyDescription(binding)
             }
 
             else -> throw IllegalStateException("")
@@ -126,6 +139,7 @@ class RepositoryDetailAdapter(
                 holder.numberStars.text = item.star
                 holder.numberWatchers.text = item.watchers
             }
+
         }
     }
 
