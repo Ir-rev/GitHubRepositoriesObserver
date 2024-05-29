@@ -1,8 +1,6 @@
 package ru.marina.githubrepositoriesobserver.provider
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dagger.Module
-import dagger.Provides
 import javax.inject.Inject
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType

@@ -7,6 +7,8 @@ import ru.marina.githubrepositoriesobserver.entity.SingInResponseRepositoryBrief
 
 interface RepositoriesBriefInfoListApi {
 
+    // не перенесен
+
     @GET("/user/repos")
     @Headers("Accept: application/vnd.github+json; X-GitHub-Api-Version: 2022-11-28")
     suspend fun getRepositoriesBriefInfoList(@Header("Authorization") token: String): List<SingInResponseRepositoryBriefInfoEntity>
